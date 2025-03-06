@@ -7,8 +7,85 @@
 </head>
 <body>
     
+    <h1>My Lybrary</h1>
 
-    <script src="app.js"></script>
+
+    <button type="button" class="botonMostrarLibros">Mostrar libros agregados</button>
+
+    <table>
+        <!-- <caption>Lista de libros</caption> -->
+        <thead>
+            <tr>
+                <th>Título del libro</th>
+                <th>Autor</th>
+                <th>Cantidad de páginas</th>
+                <th>Ha sido leído</th>
+            </tr>
+        </thead>
+        <tbody class="cuerpoDeTabla">
+
+            
+        </tbody>
+
+    </table>
+
+    <button class="botonAgregarLibro" type="button">Añadir nuevo libro</button>
+
+    <dialog>
+
+        <form method="submit">
+
+            <label for="title">Título del libro:
+                <input type="text" id="title" name="title" required>
+            </label>
+            
+
+            <label for="author">Autor:
+                <input type="text" id="author" name="author" required>
+            </label>
+            
+
+            <br>
+            
+            <label for="pages">Número de páginas:
+                <input type="number" id="pages" name="pages" min="1" max="4000" step="1" required>
+            </label>
+            
+            
+
+            <fieldset>
+                <legend>Seleccione si ha leído el libro aún o no</legend>
+
+                <div>
+
+                    <label for="read1">Si
+                        <input type="radio" id="read1" name="read" value="Si">
+                    </label>
+                    
+    
+                    <label for="read2">No
+                        <input type="radio" id="read2" name="read" value="No" checked>
+                    </label>
+                
+                </div>
+
+
+            </fieldset>
+
+            <menu>
+
+                <button class="botonCancelar">Cancelar</button>
+                <button class="botonAceptar">Agregar el libro</button>
+
+            </menu>
+            
+
+        </form>
+
+    </dialog>
+
+
+    <script src="app.js" defer></script>
 
 </body>
 </html>
