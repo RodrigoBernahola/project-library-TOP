@@ -65,6 +65,33 @@ function displayBook(book) {
         
     }
 
+
+    //Agrego los botones que se piden en los últimos pasos
+
+    let celdaEliminar = document.createElement('td');
+    let celdaMarcar = document.createElement('td');
+
+    let botonEliminar = document.createElement('button');
+    let botonMarcarLeido = document.createElement('button');
+
+    botonEliminar.innerText = 'Eliminar libro';
+    botonMarcarLeido.innerText = 'Cambiar estado leído';
+
+    celdaEliminar.appendChild(botonEliminar);
+    celdaMarcar.appendChild(botonMarcarLeido);
+
+    nuevaFila.appendChild(celdaEliminar);
+    nuevaFila.appendChild(celdaMarcar);
+
+    //Asocio un atributo data-id con el id correspondiente que tenga este objeto
+
+    nuevaFila.setAttribute('data-id', book.id);
+
+    //Para el paso 5 asociar a cada botón una clase para luego usar un event listener
+
+    botonEliminar.setAttribute('class', 'botonEliminarLibro');
+    botonMarcarLeido.setAttribute('class', 'botonMarcarLeido');
+
     let bodyDeLaTabla = document.querySelector('.cuerpoDeTabla');
     bodyDeLaTabla.appendChild(nuevaFila);
 
@@ -84,12 +111,6 @@ addBookToLibrary('Game of Thrones', 'George R.R. Martin', 700, false);
 
 //console.log(Book.prototype === theHobbit.__proto__);
 
-console.log(myLibrary);
-
-//displayLibrary(myLibrary)
-
-
-
 
 //<----------------------------------------------------->
 //Sección de código para manejar el botón y el formulario 
@@ -107,14 +128,10 @@ const formulario = document.querySelector('dialog form');
 function clearDisplay() {
 
     let cuerpoDeTabla = document.querySelector('.cuerpoDeTabla');
-    console.log(cuerpoDeTabla);
-
 
     let filas = document.querySelectorAll('tbody tr');
 
     let lenghtFilas = filas.length;
-
-    console.log(filas);
 
     if (filas.length > 0) {
 
@@ -204,3 +221,79 @@ botonMostrar.addEventListener('click', () => {
     displayLibrary(myLibrary);
 
 });
+
+
+//Sección para manejar la eliminación y cambio de estado de libros
+
+
+const table = document.querySelector('table');
+
+
+function eliminarLibroDelArray(id) {
+
+    let indexAEliminar = myLibrary.findIndex( (elem) => {elem.id === id});
+    myLibrary.splice(indexAEliminar, 1);
+
+}
+ 
+
+function eliminarLibro (e) {
+
+    //Accedo a td y luego a tr con estas propiedades
+    let filaAEliminar = e.target.parentNode.parentNode;
+    let idAEliminar = filaAEliminar.getAttribute('data-id');
+
+    console.log(myLibrary);
+
+    eliminarLibroDelArray(idAEliminar);
+
+    document.querySelector('.cuerpoDeTabla').removeChild(filaAEliminar);
+
+}
+
+
+function cambiarEstadoLectura(id) {
+
+    let libroACambiar = myLibrary.find( (elem) => elem.id === id);
+    libroACambiar.read = !libroACambiar.read;
+    return libroACambiar;
+
+}
+
+
+function cambiarEstadoLeido(e) {
+
+
+    let filaACambiar = e.target.parentNode.parentNode;
+    let idACambiar = filaACambiar.getAttribute('data-id');
+
+    document.querySelector('.cuerpoDeTabla').removeChild(filaACambiar);
+    displayBook(cambiarEstadoLectura(idACambiar));
+    console.log(e);
+
+
+
+}
+
+
+table.addEventListener('click', (e) => {
+
+    //Se verifica que lo que se presiona es uno de los botones dentro de la fila de cada libro
+
+    if (e.target.nodeName === 'BUTTON') {
+
+        if (e.target.classList.value === 'botonEliminarLibro') {
+
+            eliminarLibro(e);
+
+        }
+        else if (e.target.classList.value === 'botonMarcarLeido') {
+
+            cambiarEstadoLeido(e);
+
+        }
+
+    }
+
+})
+
