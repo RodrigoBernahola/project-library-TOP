@@ -1,5 +1,3 @@
-console.log("pepe");
-
 //<----------------------------------------------------->
 //Sección de código para manejar el array, añadir libro y el constructor de libros
 
@@ -107,10 +105,6 @@ function displayLibrary(myLibrary) {
 addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, false);
 addBookToLibrary('Game of Thrones', 'George R.R. Martin', 700, false);
 
-//console.log(theHobbit.info());
-
-//console.log(Book.prototype === theHobbit.__proto__);
-
 
 //<----------------------------------------------------->
 //Sección de código para manejar el botón y el formulario 
@@ -150,6 +144,7 @@ function clearDisplay() {
 
 // 3. Mejora la función de extracción de datos con trim():
 function extraerDatosForm() {
+
     let title = document.querySelector('#title').value.trim();
     let autor = document.querySelector('#author').value.trim();
     let pages = parseInt(document.querySelector('#pages').value);
@@ -181,14 +176,14 @@ botonCancelar.addEventListener('click', () => {dialog.close()});
 
 
 formulario.addEventListener('submit', (e) => {
+
     e.preventDefault(); // Prevenir el envío automático
     
     // Verificar la validez del formulario
     if (formulario.checkValidity()) {
         // Solo si el formulario es válido, procesa los datos
         let dataForm = extraerDatosForm();
-        console.log(dataForm);
-        
+                
         addBookToLibrary(dataForm.title, dataForm.autor, dataForm.pages, dataForm.read);
         
         // Limpia el formulario y cierra el diálogo
@@ -200,18 +195,23 @@ formulario.addEventListener('submit', (e) => {
         // Mostrar errores de validación
         formulario.reportValidity();
     }
+
 });
 
 
 // 3. Modifica el evento del botón aceptar para que simplemente envíe el formulario
 botonAceptar.addEventListener('click', (e) => {
+
     e.preventDefault();
+
     // Disparar el evento submit del formulario
+
     const submitEvent = new Event('submit', {
         bubbles: true,
         cancelable: true,
     });
     formulario.dispatchEvent(submitEvent);
+
 });
 
 
@@ -243,8 +243,6 @@ function eliminarLibro (e) {
     let filaAEliminar = e.target.parentNode.parentNode;
     let idAEliminar = filaAEliminar.getAttribute('data-id');
 
-    console.log(myLibrary);
-
     eliminarLibroDelArray(idAEliminar);
 
     document.querySelector('.cuerpoDeTabla').removeChild(filaAEliminar);
@@ -263,15 +261,11 @@ function cambiarEstadoLectura(id) {
 
 function cambiarEstadoLeido(e) {
 
-
     let filaACambiar = e.target.parentNode.parentNode;
     let idACambiar = filaACambiar.getAttribute('data-id');
 
     document.querySelector('.cuerpoDeTabla').removeChild(filaACambiar);
     displayBook(cambiarEstadoLectura(idACambiar));
-    console.log(e);
-
-
 
 }
 
