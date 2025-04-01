@@ -3,24 +3,27 @@
 
 const myLibrary = [];
 
+class Book {
 
-function Book(title, author, pages, read) {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+    info() {
 
-    this.info = function() {
+        let stringRead;
 
-        let stringRead = 'not readed yet';
-        if (read) stringRead = 'already readed';
+        stringRead = this.read ? 'Already readed' : 'Not readed yet';
 
-        let string = `${this.title} by ${this.author}, ${this.pages} pages, ${stringRead}`
+        let string = `${this.title} by ${this.author}, ${this.pages} pages, ${stringRead}`;
 
-        return string
+        return string;
 
     }
+
 
 }
 
@@ -136,8 +139,6 @@ function clearDisplay() {
         }
 
     }
-
-
 }
 
 
